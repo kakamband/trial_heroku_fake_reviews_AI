@@ -1,2 +1,1 @@
-web: gunicorn trial_app:application
-heroku ps:scale web=1
+web: python trial_app.py

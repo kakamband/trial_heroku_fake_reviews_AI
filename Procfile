@@ -1,1 +1,1 @@
-'web: gunicorn trial_app:application' 
+web: gunicorn trial_app:application

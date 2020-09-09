@@ -57,7 +57,7 @@ padding_type='post'
 oov_tok = "<OOV>"
 
 ### IMPORT OF TRAINING SENTENCES TO CREATE THE TOKENIZER
-training_file = pd.read_csv('training_sentences_df_old_dataset.csv')
+training_file = pd.read_csv('training_sentences_df.csv')
 training_sentences = training_file.iloc[:,-1]
 # print(training_sentences)
 
@@ -71,11 +71,11 @@ for j in training_sentences:
 
 ### TOKENIZER and padding
 tokenizer = Tokenizer(num_words=vocab_size, oov_token=oov_tok)
-tokenizer.fit_on_texts(training_sentences)
+tokenizer.fit_on_texts(trial_list)
 
 ### IMPORTING THE MODEL
 # Recreate the exact same model, including its weights and the optimizer
-model = tf.keras.models.load_model('my_model_2.h5')
+model = tf.keras.models.load_model('lemmma_aug_model_0.h5')
 
 def check_genuine_reviews(sentences_raw, model):
     df = pd.DataFrame()
@@ -125,7 +125,7 @@ def predict():
     review_list_from_function = scraping(url,
                                          page_numbers,
                                          element)
-    genuine_review, total_review, genuine_review_percentage = check_genuine_reviews(sentences_raw = trial_list, model = model)
+    genuine_review, total_review, genuine_review_percentage = check_genuine_reviews(sentences_raw = review_list_from_function, model = model)
 
     return render_template('trial_index.html', prediction_text ='Appoximately {}% of the reviews are genuine for this product.'.format(genuine_review_percentage))
 

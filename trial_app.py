@@ -4,19 +4,21 @@ import time
 from selenium import webdriver
 import numpy as np
 import pandas as pd
+import os
 from tensorflow.keras.preprocessing.text import Tokenizer
 from selenium.webdriver.chrome.options import Options
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 
 ### SCRAPING PART
-CHROMEDRIVER_PATH = 'chromedriver'
-
 chrome_options = Options()
+chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--no-sandbox")
 
-driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH,
-                          chrome_options=chrome_options
+driver = webdriver.Chrome(executable_path = os.environ.get("CHROMEDRIVER_PATH"),
+                          chrome_options = chrome_options
                           )
 
 
